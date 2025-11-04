@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Magical AI Hospital - Meet Our Robot Doctors!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .storybook-page {
+            background: linear-gradient(to bottom, #ffeaa7, #fff);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin: 20px;
+            border: 5px solid #fdcb6e;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6c5ce7;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            animation: rainbow 3s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #e74c3c; }
+            33% { color: #3498db; }
+            66% { color: #2ecc71; }
+            100% { color: #e74c3c; }
+        }
+
+        .story-intro {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 3px dashed #74b9ff;
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #2d3436;
+        }
+
+        .robot-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .robot-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .robot-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .robot-card.logic {
+            border-color: #ff6b6b;
+            background: linear-gradient(to bottom, #fff, #ffe0e0);
+        }
+
+        .robot-card.tree {
+            border-color: #4ecdc4;
+            background: linear-gradient(to bottom, #fff, #d4f4f1);
+        }
+
+        .robot-card.neural {
+            border-color: #95e1d3;
+            background: linear-gradient(to bottom, #fff, #e8f8f5);
+        }
+
+        .robot-illustration {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Dr. Logic Robot */
+        .dr-logic {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logic-head {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            border-radius: 20px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .logic-antenna {
+            width: 4px;
+            height: 30px;
+            background: #ff6b6b;
+            position: absolute;
+            top: -30px;
+            left: 48px;
+        }
+
+        .logic-antenna-ball {
+            width: 15px;
+            height: 15px;
+            background: #ffd93d;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            left: -5.5px;
+            animation: pulse 1s infinite;
+        }
+
+        .logic-eye {
+            width: 20px;
+            height: 25px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logic-eye.left { left: 20px; }
+        .logic-eye.right { right: 20px; }
+
+        .logic-pupil {
+            width: 10px;
+            height: 10px;
+            background: #2d3436;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            left: 5px;
+            animation: look-around 4s infinite;
+        }
+
+        .logic-mouth {
+            width: 40px;
+            height: 20px;
+            border: 3px solid #2d3436;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+        }
+
+        .logic-body {
+            width: 80px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff8787, #ffa8a8);
+            border-radius: 15px;
+            margin: 10px auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        .logic-display {
+            width: 50px;
+            height: 30px;
+            background: #2ecc71;
+            border-radius: 5px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logic-arm {
+            width: 40px;
+            height: 8px;
+            background: #ff6b6b;
+            position: absolute;
+            top: 20px;
+            border-radius: 5px;
+        }
+
+        .logic-arm.left { 
+            left: -35px; 
+            transform: rotate(-20deg);
+        }
+        .logic-arm.right { 
+            right: -35px; 
+            transform: rotate(20deg);
+        }
+
+        /* Dr. Tree Robot */
+        .dr-tree {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        .tree-head {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4ecdc4, #6edcd4);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(78,205,196,0.4);
+        }
+
+        .tree-leaf {
+            width: 25px;
+            height: 25px;
+            background: #2ecc71;
+            border-radius: 50% 0;
+            position: absolute;
+            animation: leaf-wiggle 2s infinite;
+        }
+
+        .tree-leaf.l1 { top: -10px; left: 10px; transform: rotate(45deg); }
+        .tree-leaf.l2 { top: -10px; right: 10px; transform: rotate(-45deg); }
+        .tree-leaf.l3 { top: 10px; left: -10px; transform: rotate(135deg); }
+
+        @keyframes leaf-wiggle {
+            0%, 100% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(35deg) scale(1.1); }
+        }
+
+        .tree-eye {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .tree-eye.left { left: 20px; }
+        .tree-eye.right { right: 20px; }
+
+        .tree-pupil {
+            width: 12px;
+            height: 12px;
+            background: #2d3436;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        .tree-smile {
+            width: 50px;
+            height: 25px;
+            border: 3px solid #2d3436;
+            border-top: none;
+            border-radius: 0 0 25px 25px;
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+        }
+
+        .tree-body {
+            width: 90px;
+            height: 80px;
+            background: linear-gradient(135deg, #6edcd4, #8ee6df);
+            border-radius: 20px;
+            margin: 10px auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(78,205,196,0.3);
+        }
+
+        .tree-branches {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .branch-line {
+            width: 2px;
+            height: 30px;
+            background: #27ae60;
+            position: absolute;
+            animation: grow 2s infinite;
+        }
+
+        .branch-line:nth-child(1) { left: 20px; top: 10px; }
+        .branch-line:nth-child(2) { left: 45px; top: 10px; animation-delay: 0.3s; }
+        .branch-line:nth-child(3) { right: 20px; top: 10px; animation-delay: 0.6s; }
+
+        @keyframes grow {
+            0%, 100% { height: 30px; }
+            50% { height: 40px; }
+        }
+
+        /* Dr. Neural Robot */
+        .dr-neural {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            animation: float 3s ease-in-out infinite 1s;
+        }
+
+        .neural-head {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(162,155,254,0.4);
+        }
+
+        .neural-brain {
+            width: 70px;
+            height: 70px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            opacity: 0.6;
+        }
+
+        .neural-synapse {
+            width: 6px;
+            height: 6px;
+            background: #ffd93d;
+            border-radius: 50%;
+            position: absolute;
+            animation: synapse-fire 1.5s infinite;
+        }
+
+        .neural-synapse:nth-child(2) { top: 25px; left: 30px; animation-delay: 0.2s; }
+        .neural-synapse:nth-child(3) { top: 45px; left: 50px; animation-delay: 0.4s; }
+        .neural-synapse:nth-child(4) { top: 65px; left: 35px; animation-delay: 0.6s; }
+
+        @keyframes synapse-fire {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .neural-eye {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 45px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .neural-eye.left { left: 25px; }
+        .neural-eye.right { right: 25px; }
+
+        .neural-pupil {
+            width: 9px;
+            height: 9px;
+            background: #6c5ce7;
+            border-radius: 50%;
+            position: absolute;
+            top: 4.5px;
+            left: 4.5px;
+            animation: neural-scan 3s infinite;
+        }
+
+        @keyframes neural-scan {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        .neural-mouth {
+            width: 45px;
+            height: 5px;
+            background: #2d3436;
+            border-radius: 3px;
+            position: absolute;
+            bottom: 25px;
+            left: 32.5px;
+        }
+
+        .neural-body {
+            width: 95px;
+            height: 85px;
+            background: linear-gradient(135deg, #b2a8ff, #9385ff);
+            border-radius: 25px;
+            margin: 10px auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(162,155,254,0.3);
+            overflow: hidden;
+        }
+
+        .neural-circuit {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .circuit-line {
+            width: 2px;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+            position: absolute;
+            animation: data-flow 2s infinite linear;
+        }
+
+        .circuit-line:nth-child(1) { left: 20px; }
+        .circuit-line:nth-child(2) { left: 45px; animation-delay: 0.5s; }
+        .circuit-line:nth-child(3) { right: 20px; animation-delay: 1s; }
+
+        @keyframes data-flow {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Common animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        @keyframes look-around {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .robot-name {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .robot-card.logic .robot-name { color: #ff6b6b; }
+        .robot-card.tree .robot-name { color: #4ecdc4; }
+        .robot-card.neural .robot-name { color: #6c5ce7; }
+
+        .robot-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2d3436;
+            text-align: center;
+        }
+
+        .robot-specialty {
+            background: rgba(0,0,0,0.05);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .hospital-sign {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            border: 5px solid #fdcb6e;
+            animation: sign-glow 2s infinite;
+        }
+
+        @keyframes sign-glow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(253,203,110,0.5); }
+            50% { box-shadow: 0 10px 50px rgba(253,203,110,0.8); }
+        }
+
+        .hospital-sign h2 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="hospital-sign">
+        <h2>🏥 Welcome to the Magical AI Hospital! ✨</h2>
+    </div>
+
+    <div class="storybook-page">
+        <h1>Meet Our Robot Doctors! 🤖</h1>
+        
+        <div class="story-intro">
+            <p>🌟 Once upon a time, in a magical hospital high in the clouds, there worked three special robot doctors. Each had their own unique superpowers to help patients!</p>
+            <br>
+            <p>💫 They used the power of Machine Learning - a special kind of magic that lets computers learn from patterns, just like how doctors learn from experience!</p>
+            <br>
+            <p>🎯 Let's meet these amazing helpers and discover their special abilities...</p>
+        </div>
+
+        <div class="robot-container">
+            <!-- Dr. Logic -->
+            <div class="robot-card logic">
+                <div class="robot-name">Dr. Logic 🤖</div>
+                <div class="robot-illustration">
+                    <div class="dr-logic">
+                        <div class="logic-head">
+                            <div class="logic-antenna">
+                                <div class="logic-antenna-ball"></div>
+                            </div>
+                            <div class="logic-eye left">
+                                <div class="logic-pupil"></div>
+                            </div>
+                            <div class="logic-eye right">
+                                <div class="logic-pupil"></div>
+                            </div>
+                            <div class="logic-mouth"></div>
+                        </div>
+                        <div class="logic-body">
+                            <div class="logic-display">P=0.85</div>
+                            <div class="logic-arm left"></div>
+                            <div class="logic-arm right"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="robot-description">
+                    <p><strong>Superpower:</strong> Can calculate exact risk scores! 📊</p>
+                    <p>Dr. Logic is the most transparent robot - they show you exactly how they think! Like a calculator with a heart ❤️</p>
+                    <div class="robot-specialty">
+                        "I weigh each symptom carefully and give you a probability. Age × 2 + Cholesterol × 1.5 = Risk Score!"
+                    </div>
+                    <p style="margin-top: 10px;">🎯 <strong>Special Move:</strong> Logistic Regression</p>
+                </div>
+            </div>
+
+            <!-- Dr. Tree -->
+            <div class="robot-card tree">
+                <div class="robot-name">Dr. Tree 🌳</div>
+                <div class="robot-illustration">
+                    <div class="dr-tree">
+                        <div class="tree-head">
+                            <div class="tree-leaf l1"></div>
+                            <div class="tree-leaf l2"></div>
+                            <div class="tree-leaf l3"></div>
+                            <div class="tree-eye left">
+                                <div class="tree-pupil"></div>
+                            </div>
+                            <div class="tree-eye right">
+                                <div class="tree-pupil"></div>
+                            </div>
+                            <div class="tree-smile"></div>
+                        </div>
+                        <div class="tree-body">
+                            <div class="tree-branches">
+                                <div class="branch-line"></div>
+                                <div class="branch-line"></div>
+                                <div class="branch-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="robot-description">
+                    <p><strong>Superpower:</strong> Thinks in flowcharts! 🌿</p>
+                    <p>Dr. Tree asks questions step by step, just like a game of "20 Questions" or a decision tree algorithm!</p>
+                    <div class="robot-specialty">
+                        "Is cholesterol high? Yes → Is age over 60? Yes → High risk! I grow 100 decision trees and ask them to vote!"
+                    </div>
+                    <p style="margin-top: 10px;">🎯 <strong>Special Move:</strong> Random Forest</p>
+                </div>
+            </div>
+
+            <!-- Dr. Neural -->
+            <div class="robot-card neural">
+                <div class="robot-name">Dr. Neural 🧠</div>
+                <div class="robot-illustration">
+                    <div class="dr-neural">
+                        <div class="neural-head">
+                            <div class="neural-brain">
+                                <div class="neural-synapse"></div>
+                                <div class="neural-synapse"></div>
+                                <div class="neural-synapse"></div>
+                                <div class="neural-synapse"></div>
+                            </div>
+                            <div class="neural-eye left">
+                                <div class="neural-pupil"></div>
+                            </div>
+                            <div class="neural-eye right">
+                                <div class="neural-pupil"></div>
+                            </div>
+                            <div class="neural-mouth"></div>
+                        </div>
+                        <div class="neural-body">
+                            <div class="neural-circuit">
+                                <div class="circuit-line"></div>
+                                <div class="circuit-line"></div>
+                                <div class="circuit-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="robot-description">
+                    <p><strong>Superpower:</strong> Finds hidden patterns! ✨</p>
+                    <p>Dr. Neural has a super-brain with many layers! They can see patterns that even humans might miss - like magic! 🎩</p>
+                    <div class="robot-specialty">
+                        "I have layers of neurons working together! Each layer learns something different - edges, shapes, then complex patterns!"
+                    </div>
+                    <p style="margin-top: 10px;">🎯 <strong>Special Move:</strong> Neural Network</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-intro" style="margin-top: 40px;">
+            <h2 style="text-align: center; color: #6c5ce7; margin-bottom: 20px;">🌈 The Power of Teamwork!</h2>
+            <p>These three robot doctors work together in harmony:</p>
+            <br>
+            <p>🤖 <strong>Dr. Logic</strong> is great when you need to explain decisions clearly</p>
+            <p>🌳 <strong>Dr. Tree</strong> is perfect for making step-by-step clinical decisions</p>
+            <p>🧠 <strong>Dr. Neural</strong> excels at finding complex patterns in medical images and data</p>
+            <br>
+            <p>💫 Together, they make the Magical AI Hospital the best place for patients!</p>
+            <p style="text-align: center; margin-top: 20px; font-size: 1.3em; font-weight: bold;">
+                ✨ Now open the Jupyter Notebook to see them in action! ✨
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create twinkling stars in the background
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
